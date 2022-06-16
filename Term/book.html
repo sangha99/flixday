@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booksearch</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        #wrap{text-align: center; font-size:30px; color:#fff;}
+        #header{height: 100%;  background: #fbccd1;}
+        .container{width: 1100px; margin: 0 auto;  height: inherit; background: rgba(0,0,0,0.3);}
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+    <h2>영화 관련 booklist</h2>
+    <h5>ex) 입력: 해리포터 불의잔</h5>
+    <input id="bookName" value="" type="text" >
+    <button id="search">검색</button>
+
+    <p></p>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $("#search").click(function () {
+                $.ajax({
+                    method: "GET",
+                    url: "https://dapi.kakao.com/v3/search/book?target=title",
+                    data: {query: $("#bookName").val() },
+                    headers: {Authorization: "KakaoAK f760ffd147d4546acdd926ed154d939d"}
+                })
+                    .done(function (msg) {
+                        console.log(msg.documents[0].title);
+                        console.log(msg.documents[0].thumbnail);
+                        $( "p" ).append( "<strong>"+msg.documents[0].title+"</strong>" );
+                        $( "p" ).append( "<img src='"+msg.documents[0].thumbnail+"'/>" );
+                    });
+                });
+        });
+    </script> 
+            </div>
+        </div>
+    </body>
+    </html>

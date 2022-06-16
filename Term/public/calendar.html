@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="month" id="date">
+    <table id="calendar"></table>
+
+    <script>
+        //calendar 생성
+        function makeCal() {
+            let calObj = document.getElementById('calendar');
+            let calInput = document.getElementById('date');
+           
+            let dateObj1= new Date(calInput.value); //현재 선택된 월
+            let dateObj2= new Date(calInput.value.substr(0,4), calInput.value.substr(5,2) + 0); //다음달 0번쨰 == 직전 월의 마지막 날짜 
+            // 'yyyy-MM'
+
+            let endDate = dateObj2.getDate(); //끝나는 날짜
+            let startDate = dateObj1.getDay(); //0~6 일~토
+
+            //일월화수[목]
+            // 0 1 2 3 4
+            let trObj = document.createElement('tr');
+            for (j = 0; j<startDay; j++) {
+                // 비어있는 TD를 만들어서 넣는다.
+                trObj.appendChild(document.createElement('td'));
+            }
+            
+            for(let i =1; i<=endDate ; i++) {
+                    let tdObj = document.createElement('td'); //각 날짜의 TD
+                    tdobj.innerText = i;
+                    trObj.appendChild(tdObj);
+            }
+
+            calObj.appendChild(trObj);
+
+            console.log(dateobj1);
+            console.log(dateObj2);
+        }
+        document.getElementById('date').addEventListener('input',makeCal);
+        
+    </script>
+</body>
+</html>
